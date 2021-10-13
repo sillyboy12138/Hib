@@ -108,31 +108,29 @@
 
 
 ###11
-# import random
-# import time
-# pu=random.randint(0,100)
-# i=1
-# if i<=3:
-# 	while True:
-# 		number=int(input("请猜0~100的一个数："))
-# 		if number==pu:
-# 			print("猜对了！！")
-# 			print(i,"次猜对，奖励10元宝！！")
-# 			break
-# 		elif number>pu:
-# 			print("猜大了哦！！")
-# 			i+=1
-# 			continue
-# 		else:
-# 			print("猜小了哦！！")
-# 			i+=1
-			
-# elif 3<i<=10:
-# 	print(i,"次猜对，奖励三元宝，继续加油！！")
-# 	i+=1
-# else:
-# 	print("再接再厉！！")
-# time.sleep(3)
+import random
+import time
+pu=random.randint(0,100)
+i=1
+
+while True:
+	number=int(input("请猜0~100的一个数："))
+	if number==pu:
+		print("猜对了！！")
+		if i<=3:
+			print(i,"次猜对，奖励10元宝！！")
+		elif 3<i<=10:
+			print(i,"次猜对，奖励三元宝，继续加油！！")
+		else:
+			print("再接再厉！！5S后重试")	
+			time.sleep(5)
+		break
+	elif number>pu:
+		print("猜大了哦！！")
+		i+=1
+	else:
+		print("猜小了哦！！")
+		i+=1
 
 
 ###12
