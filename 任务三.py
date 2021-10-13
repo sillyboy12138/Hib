@@ -18,6 +18,7 @@ print("每人的平均薪资为：",Sum_money/len(money))
 print("每人的平均年龄为：",Sum_age/len(age))
 #3
 cur.execute('INSERT INTO 公司职员信息 VALUES("刘备","45","男","220","alibaba",500,"30")')
+db.commit()
 cur.execute('SELECT name,sex from 公司职员信息')
 sex=cur.fetchall()
 man=0
