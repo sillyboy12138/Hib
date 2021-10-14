@@ -34,8 +34,8 @@ for i in (info['小明']['friuts']):
 	friutm.append(info['小明']['friuts'][i])
 
 for m in (info['小刚']['friuts']):
-	Friutg.append(Friuts[i])
-	friutg.append(info['小明']['friuts'][i])
+	Friutg.append(Friuts[m])
+	friutg.append(info['小刚']['friuts'][m])
 x=0
 y=0
 money1=0
