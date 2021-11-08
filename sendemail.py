@@ -13,12 +13,12 @@ to='3072791869@qq.com'
 t=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
 subject='python repetion test' +t
 
-fp=open("E:\sublime\python\day13\计算器.html","r")
+fp=open("E:\sublime\python\day13\计算器.html","r"，encoding="utf-8")
 msg=email.message_from_file(fp)
 fp.close()
 for par in msg.walk():
     if not par.is_multipart():
-        connect=par.get_payload(decode=True).decode()
+        connect=par.get_payload(decode=True).decode('utf-8')
 
 def send_email():
     msg=MIMEText(connect,'html')
