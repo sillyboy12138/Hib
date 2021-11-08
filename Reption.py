@@ -1,0 +1,9 @@
+class Repetion:
+    def TestAdd(self,num1,num2):
+        return num1+num2
+    def TestSubtract(self,num1,num2):
+        return num1-num2
+    def TestMultiply(self,num1,num2):
+        return num1*num2
+    def TestDivide(self,num1,num2):
+        return num1/num2
