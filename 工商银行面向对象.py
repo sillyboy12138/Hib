@@ -82,37 +82,60 @@ class Bank(User):
 			else:
 				print("密码输入错误！")
 
-	def transfer(self):
+	def transfer(self,Id,save_password,change_user,change_money):
+		USER=[]
+		PASSWORD=[]
+		MONEYY=[]
+		cur.execute('SELECT username,password,moneyy FROM icbc')
+		data_cx = cur.fetchall()
+		for x in range(len(data_cx)):
+			USER.append(data_cx[x][0])
+			PASSWORD.append(data_cx[x][1])
+			MONEYY.append(data_cx[x][2])
+		if Id not in USER:
+			return 0
+		else:
+			user_index=USER.index(Id)
+			while True:
+				# save_password=input("请输入您的密码：")
+				if save_password==PASSWORD[user_index]:
+					# change_user=input("请输入转入账户：")
+					if change_user not in USER:
+						return 3
+					else:
+						# change_money=float(input("请输入转账金额："))
+						if change_money>float(MONEYY[user_index]) or change_money<0:
+							return 2
+						else:
+							cur.execute("UPDATE icbc SET moneyy='%s' WHERE username='%s'"%(float(MONEYY[user_index])-change_money,Id))
+							cur.execute("UPDATE icbc SET moneyy='%s' WHERE username='%s'"%(float(MONEYY[user_index])+change_money,change_user))
+							db.commit()
+							return 1
+				else:
+					return 4
+
+def chaxun(Id,save_password):
+	USER = []
+	PASSWORD = []
+	MONEYY = []
+	cur.execute('SELECT username,password,moneyy FROM icbc')
+	data_cx = cur.fetchall()
+	for x in range(len(data_cx)):
+		USER.append(data_cx[x][0])
+		PASSWORD.append(data_cx[x][1])
+		MONEYY.append(data_cx[x][2])
+	if Id not in USER:
+		return 0
+	else:
 		user_index=USER.index(Id)
 		while True:
-			save_password=input("请输入您的密码：")
+			# save_password=input("请输入账户密码：")
 			if save_password==PASSWORD[user_index]:
-				change_user=input("请输入转入账户：")
-				if change_user not in USER:
-					print("用户不存在！")
-				else:
-					change_money=float(input("请输入转账金额："))
-					if change_money>float(MONEYY[user_index]):
-						print("余额不足！")
-					else:
-						cur.execute("UPDATE icbc SET moneyy='%s' WHERE username='%s'"%(float(MONEYY[user_index])-change_money,Id))
-						cur.execute("UPDATE icbc SET moneyy='%s' WHERE username='%s'"%(float(MONEYY[user_index])+change_money,change_user))
-						db.commit()
-						print("转账成功！")
-						break
+				cur.execute("SELECT * FROM icbc WHERE username='%s'"%(Id))
+				print(cur.fetchall())
+				return 1
 			else:
-				print("密码输入错误！")
-
-def chaxun():
-	user_index=USER.index(Id)
-	while True:
-		save_password=input("请输入账户密码：")
-		if save_password==PASSWORD[user_index]:
-			cur.execute("SELECT * FROM icbc WHERE username='%s'"%(Id))
-			print(cur.fetchall())
-			break
-		else:
-			print("密码输入错误！！")
+				return 2
 		
 def Id_chaxun():
 	cur.execute('SELECT username,password,moneyy FROM icbc')
@@ -189,21 +212,15 @@ if __name__ == '__main__':
 		elif choice==4:
 			Id_chaxun()
 			while True:
-				Id=input("请输入您的账号：")
-				if Id not in USER:
-					print("该用户不存在！！")
-				else:
-					m.transfer()
-					break
+				# Id=input("请输入您的账号：")
+				print(m.transfer())
+				break
 		elif choice==5:
 			Id_chaxun()
 			while True:
 				Id=input("请输入您的账号：")
-				if Id not in USER:
-					print("该用户不存在！！")
-				else:
-					chaxun()
-					break
+				print(chaxun())
+				break
 		elif choice==6:
 			exit()
 		else:
